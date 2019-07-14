@@ -1,0 +1,29 @@
+body, html {
+    height: 100%;
+}
+
+body { 
+    /* The image used */
+    background-image: url("../images/wild-west-background.jpg");
+  
+    /* Full height */
+    height: 100%; 
+  
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+div {
+    /* color: blue; */
+}
+
+h2 {
+    font-family: 'Barriecito', cursive;
+}
+
+.container {
+    background-color: transparent;
+    width: 200px;
+}

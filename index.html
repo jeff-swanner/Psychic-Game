@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Word Guess Game</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Barriecito&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Hangman</h1>
+        <h2>Outlaw Style</h2>
+        <button id="newGame">New Game</button>
+        <h2 id="wins">Wins:</h2>
+        <div id="hmText"></div>
+        <div id="guessCount"></div>
+        <div id="guesses"></div>
+        <audio id="myAudio">
+                <source src="assets/audio/shotgun.wav" type="audio/wav">
+        </audio>
+    </div>
+    
+    <script type="text/javascript">
+    var words = [
+        "cowboys", 
+        "indians",
+        "lasso",
+        "holster",
+        "rodeo",
+        "howdy",
+        "lawless",
+        "outlaw",
+        "saloon",
+        "sheriff",
+        "saddlebags",
+        "stallion",
+        "gallop",
+        "gunslinger",
+    ];
+    var letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+    var wins = 0;
+
+    var remainingGuesses = 0;
+    var remainingLetters = 0;
+    var guesses = [];
+    var wordDisplay = [];
+    var randWord ="";
+    
+    $("#newGame").on("click", function() {
+        randWord = words[Math.floor(Math.random() * words.length)];
+        randWord = randWord.toUpperCase();
+        console.log(randWord);
+        wordDisplay = [];
+        $("#hmText").empty();
+        for (i=0;i<randWord.length;i++) {
+            wordDisplay.push("_");
+        };
+        for (i=0;i<wordDisplay.length;i++) {
+            var newDiv = $("<b>");
+            newDiv.text(wordDisplay[i]+" ");
+            $("#hmText").append(newDiv);
+        };
+        remainingGuesses = 12;
+        remainingLetters = randWord.length;
+        guesses = [];
+        $("#guesses").empty();
+        $("#guessCount").text("Guesses Remaining: "+remainingGuesses);
+    });
+
+    document.onkeyup = function(event) {
+        var userInput = event.key.toUpperCase();
+        if (letters.indexOf(userInput) >= 0 && remainingGuesses > 0) {
+            if (guesses.indexOf(userInput) === -1) {
+                guesses.push(userInput);
+                $("#guesses").text("Guesses: "+guesses);
+                var incorrectGuess = true;
+                for (i=0;i<wordDisplay.length;i++) {
+                    if (userInput === randWord[i]) {
+                        wordDisplay[i] = randWord[i];
+                        remainingLetters -= 1;
+                        incorrectGuess = false;
+                        var correctAudio = document.getElementById("myAudio");
+                        correctAudio.play();
+                    }; 
+                };
+                if (incorrectGuess) {
+                    remainingGuesses -= 1;
+                    $("#guessCount").text("Guesses Remaining: "+remainingGuesses);
+                }
+                if (remainingLetters === 0) {
+                    wins++;
+                    alert("You won!");
+                    $("#wins").text("Wins: "+wins)
+                };
+                if (remainingGuesses === 0) {
+                    alert("You lost!");
+                };
+                $("#hmText").empty();
+                for (i=0;i<wordDisplay.length;i++) {
+                    var newDiv = $("<b>");
+                    newDiv.text(wordDisplay[i]+" ");
+                    $("#hmText").append(newDiv);
+                };
+            };
+        };
+    };
+    
+    </script>
+</body>
+</html>
