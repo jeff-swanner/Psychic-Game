@@ -5,103 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Word Guess Game</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Barriecito&display=swap" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="assets/javascript/game.js"></script>
 </head>
 <body>
-    <div class="container">
-        <h1>Hangman</h1>
-        <h2>Outlaw Style</h2>
-        <button id="newGame">New Game</button>
-        <h2 id="wins">Wins:</h2>
-        <div id="hmText"></div>
-        <div id="guessCount"></div>
-        <div id="guesses"></div>
-        <audio id="myAudio">
-                <source src="assets/audio/shotgun.wav" type="audio/wav">
-        </audio>
+    <div class="container ">
+        <div class="row justify-content-md-center">
+            <div class="cl-lg-3 border border-dark" id="gameContents">
+                <h1>Hangman</h1>
+                <h2 id="outlaw">Wild West Edition</h2>
+                <h2 id="wins">Wins:</h2>
+                <div id="instructions">Press any key to get started!</div>
+                <div class="hmContainer justify-content-md-center"><div class="border border-dark" id="hmText"></div>
+                <div id="guessCount"></div>
+                <div id="guesses"></div>
+                <audio id="myAudio">
+                    <source src="assets/audio/shotgun.wav" type="audio/wav">
+                </audio>
+                <audio id="myAudio2">
+                        <source src="assets/audio/shell_falling.wav" type="audio/wav">
+                </audio>
+                <div class="container3">
+                    <div class="container2">
+                        <div id="post"></div>
+                        <div id="topbar"></div>
+                        <div id="verticalbar"></div>
+                        <div id="head"></div>
+                        <div id="hand"></div>
+                        <div id="handright"></div>
+                        <div id="bod"></div>
+                        <div id="leg"></div>
+                        <div id="legright"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    
-    <script type="text/javascript">
-    // Define Variables
-    var words = [
-        "cowboys", 
-        "indians",
-        "lasso",
-        "holster",
-        "rodeo",
-        "howdy",
-        "lawless",
-        "outlaw",
-        "saloon",
-        "sheriff",
-        "saddlebags",
-        "stallion",
-        "gallop",
-        "gunslinger",
-    ];
-    var letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
-    var wins = 0;
-    var remainingGuesses = 0;
-    var remainingLetters = 0;
-    var guesses = [];
-    var wordDisplay = [];
-    var randWord ="";
-    // New Game Reset
-    $("#newGame").on("click", function() {
-        randWord = words[Math.floor(Math.random() * words.length)];
-        randWord = randWord.toUpperCase();
-        wordDisplay = [];
-        $("#hmText").empty();
-        for (i=0;i<randWord.length;i++) {
-            wordDisplay.push("_");
-            var newDiv = $("<b>");
-            newDiv.text(wordDisplay[i]+" ");
-            $("#hmText").append(newDiv);
-        };
-        remainingGuesses = 8;
-        remainingLetters = randWord.length;
-        guesses = [];
-        $("#guesses").empty();
-        $("#guessCount").text("Guesses Remaining: "+remainingGuesses);
-    });
-    // Main Game Loop
-    document.onkeyup = function(event) {
-        var userInput = event.key.toUpperCase();
-        if (letters.indexOf(userInput) >= 0 && remainingGuesses > 0 && guesses.indexOf(userInput) === -1) {
-            guesses.push(userInput);
-            $("#guesses").text("Guesses: "+guesses);
-            var incorrectGuess = true;
-            for (i=0;i<wordDisplay.length;i++) {
-                if (userInput === randWord[i]) {
-                    wordDisplay[i] = randWord[i];
-                    remainingLetters -= 1;
-                    incorrectGuess = false;
-                    var correctAudio = document.getElementById("myAudio");
-                    correctAudio.play();
-                }; 
-            };
-            if (incorrectGuess) {
-                remainingGuesses -= 1;
-                $("#guessCount").text("Guesses Remaining: "+remainingGuesses);
-            }
-            if (remainingLetters === 0) {
-                wins++;
-                alert("You won!");
-                $("#wins").text("Wins: "+wins)
-            };
-            if (remainingGuesses === 0) {
-                alert("You lost!");
-            };
-            $("#hmText").empty();
-            for (i=0;i<wordDisplay.length;i++) {
-                var newDiv = $("<b>");
-                newDiv.text(wordDisplay[i]+" ");
-                $("#hmText").append(newDiv);
-            };
-        };
-    };
-    </script>
 </body>
 </html>

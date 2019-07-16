@@ -1,29 +1,157 @@
 body, html {
     height: 100%;
+    color: black;
 }
 
 body { 
-    /* The image used */
     background-image: url("../images/wild-west-background.jpg");
-  
-    /* Full height */
-    height: 100%; 
-  
-    /* Center and scale the image nicely */
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
 }
 
 div {
-    /* color: blue; */
+    font-size: 20px;
 }
 
-h2 {
-    font-family: 'Barriecito', cursive;
+h1, h2 {
+    font-family: 'Barriecito', cursive; 
 }
 
-.container {
-    background-color: transparent;
-    width: 200px;
+#outlaw {
+    font-size: 50px;
+    transform: rotate(3deg);
+    animation-name: outlawAnimation;
+    animation-duration: 2s;
+}
+
+@keyframes outlawAnimation {
+    0% {}
+    30% {transform: scale(1.2);}
+    100% {transform: scale(1); transform: rotate(3deg);}
+}
+
+#hmContainer {
+    text-align: center;
+    width: 100%;
+}
+
+#hmText {
+    display: inline-block;
+    padding: 20px;
+    letter-spacing: 10px;
+}
+
+#gameContents {
+    background-color: rgba(204, 204, 204, 0.5);
+    padding: 40px;
+    padding-bottom: 130px;
+}
+
+
+
+/* Hangman Components Below*/
+.container3 {
+    position: relative;
+    margin-top: 200px;
+}
+
+.container2,
+#head,
+#hand,
+#leg,
+#bod, 
+#topbar,
+#post,
+#verticalbar,
+#handright,
+#legright {
+  position: absolute;
+}
+
+.container2 {
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 200px;
+  height: 350px;
+}
+
+#head {
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+  left:0px;
+  top: 5px;
+  border: 5px solid black;
+}
+
+#topbar {
+    width: 140px;
+    height: 5px;
+    background: black;
+    top: -20px;
+    left: 20px;
+}
+
+#post {
+    width: 5px;
+    height: 320px;
+    background: black;
+    top: -20px;
+    left: 160px;
+}
+
+#verticalbar {
+    width: 5px;
+    height: 30px;
+    background: black;
+    top: -20px;
+    left: 20px;
+}
+
+#bod {
+    width: 5px;
+    height: 120px;
+    background: black;
+    top: 60px;
+    left: 20px;
+}
+
+#hand {
+    width: 5px;
+    height: 100px;
+    background: black;
+    top: 80px;
+    left: -10px;
+    transform: rotate(30deg);
+}
+
+#handright {
+    width: 5px;
+    height: 100px;
+    background: black;
+    top: 80px;
+    left: 55px;
+    transform: rotate(-30deg);
+}
+
+#legright {
+    background: black;
+    transform: rotate(-30deg);
+    height: 130px;
+    width: 5px;
+    top: 176px;
+    left: 55px;
+}
+
+#leg {
+    background: black;
+    transform: rotate(30deg);
+    height: 130px;
+    width: 5px;
+    top: 176px;
+    left: -15px;
 }
